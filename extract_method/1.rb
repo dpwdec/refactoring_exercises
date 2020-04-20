@@ -1,6 +1,10 @@
 def send_email_to(user)
-  email = user.email.strip
-  mail  = Mail.new(email)
+  mail  = Mail.new(get_email_body(user))
   
   mail.send_message
 end
+
+def get_email_body(user)
+  user.email.strip
+end
+
