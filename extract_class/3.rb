@@ -1,14 +1,19 @@
 # Understands detecting the browser type, detecting the browser width, and giving the user the correct page
 class BrowserPageChooser
-  def send_correct_page(browser, window)
-    safari_small_message = "You are using the Safari browser in a small window."
-    not_safari_or_big_message = "You are not using the Safari browser or have a big window."
-
-    safari?(browser) && small?(window) ? safari_small_message : not_safari_or_big_message
+  
+  SAFARI_SMALL_MESSAGE = "You are using the Safari browser in a small window."
+  NOT_SAFARI_OR_BIG_MESSAGE = "You are not using the Safari browser or have a big window."
+  
+  def initialize
+    @browser_checker = BrowserChecker.new
   end
+  
+  def send_correct_page(browser, window)
+    @browser_checker.safari?(browser) && @browser_checker.small?(window) ? SAFARI_SMALL_MESSAGE : NOT_SAFARI_OR_BIG_MESSAGE
+  end
+end
 
-  private
-
+class BrowserChecker
   def safari?(browser)
     browser.type == "Safari"
   end
